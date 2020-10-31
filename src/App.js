@@ -8,7 +8,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState, useRef } from 'react';
 
 firebase.initializeApp({
-
+  //get config info from firebase
 });
 
 const auth = firebase.auth();
