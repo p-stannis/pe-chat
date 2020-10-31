@@ -5,10 +5,10 @@ import 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { useState , useRef} from 'react';
+import { useState, useRef } from 'react';
 
 firebase.initializeApp({
-  
+
 });
 
 const auth = firebase.auth();
@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <header >
-      <SignOut />
+        <SignOut />
       </header>
       <section>
         {user ? <ChatRoom /> : <SignIn />}
@@ -54,10 +54,10 @@ function ChatRoom() {
 
   const [formValue, setFormValue] = useState('');
 
-  const sendMessage = async(e) => { 
+  const sendMessage = async (e) => {
     e.preventDefault();
 
-    const {uid, photoURL} = auth.currentUser;
+    const { uid, photoURL } = auth.currentUser;
 
     await messagesRef.add({
       text: formValue,
@@ -68,7 +68,7 @@ function ChatRoom() {
 
     setFormValue('');
 
-    dummy.current.scrollIntoView({behavior: 'smooth'});
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
   return (
     <>
@@ -78,7 +78,7 @@ function ChatRoom() {
       </main>
       <form onSubmit={sendMessage}>
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-        <button type="submit">Submit bitch</button>
+        <button type="submit">Submit</button>
       </form>
     </>
   )
