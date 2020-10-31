@@ -9,6 +9,7 @@ import { useState, useRef } from 'react';
 
 firebase.initializeApp({
   //get config info from firebase
+  
 });
 
 const auth = firebase.auth();
@@ -53,6 +54,7 @@ function ChatRoom() {
   const [messages] = useCollectionData(query, { idField: 'id' });
 
   const [formValue, setFormValue] = useState('');
+  const [disableSubmitButton, setDisableSubmitButton] = useState(true);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -67,9 +69,16 @@ function ChatRoom() {
     });
 
     setFormValue('');
-
+    setDisableSubmitButton(true);
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
+
+  const onChangeInput = (e) => {
+    setFormValue(e.target.value);
+    if (e.target.value !== '') setDisableSubmitButton(false);
+    if (e.target.value === '') setDisableSubmitButton(true);
+  }
+
   return (
     <>
       <main>
@@ -77,8 +86,8 @@ function ChatRoom() {
         <div ref={dummy}></div>
       </main>
       <form onSubmit={sendMessage}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-        <button type="submit">Submit</button>
+        <input value={formValue} onChange={(e) => onChangeInput(e)} />
+        <button disabled={disableSubmitButton} type="submit">Submit</button>
       </form>
     </>
   )
